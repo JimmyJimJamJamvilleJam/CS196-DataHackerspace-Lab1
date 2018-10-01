@@ -51,13 +51,35 @@ def reflections_and_projections(points):
     temp = np.copy(arr[1])
     arr[1] = arr[0]
     arr[0] = temp
-    print(arr)
 
     x = np.pi / 2
-    rotate_matrix = [[np.cos(x), -np.sin(x)], [np.sin(x), np.cos(x)]]
+    rotate_matrix = np.array([[0, -1], [1, 0]])
+
+    arr = np.dot(rotate_matrix,arr)
+
+    linear_matrix = np.array([[1/10, 3/10], [3/10,9/10]])
+
+    arr = np.dot(linear_matrix,arr)
+
+    return arr
+
 
 def normalize(image):
-    pass
+    colours = np.array(image)
+    max = colours[0][0]
+    min = colours[0][0]
+    for i in range(32):
+        for j in range(32):
+            if colours[i][j] > max:
+                max = colours[i][j]
+            if colours[i][j] < min:
+                min = colours[i][j]
+
+    print(min, max)
+    for i in range(32):
+        for j in range(32):
+            colours[i][j] = (255 / (max - min)) * (colours[i][j] - min)
+    return colours
 
 
 def sigmoid_normalize(image):
@@ -67,6 +89,7 @@ def sigmoid_normalize(image):
 def main():
     #histogram_times('airplane_crashes.csv')
     #single_type_candy_count('pokedex.json')
-    arr_2d = np.array([np.arange(2 * i, 10 * i + 5) for i in range(10)])
-    reflections_and_projections([[1,2,3],[4,5,6]])
+    #arr_2d = np.array([np.arange(2 * i, 10 * i + 5) for i in range(10)])
+    #reflections_and_projections([[1,2,3],[4,5,6]])
+    print(normalize([[1,2,3],[4,5,6]]))
 main()
