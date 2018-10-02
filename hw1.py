@@ -46,12 +46,12 @@ def single_type_candy_count(filename):
     with open(filename) as f:
         pokemon_data = json.load(f)
     count = 0
-    print(pokemon_data)
-    #for pokemon in pokemon_data['pokemon']:
-        # print(pokemon['candy_count'])
-        # if pokemon['candy_count'] != '':
-        #   count += pokemon['candy_count']
-        #print(count)
+    pokemons = pokemon_data.get('pokemon')
+    for x in range(len(pokemons)):
+        pokemon_candy = pokemons[x].get('candy_count')
+        print(pokemon_candy)
+        if pokemon_candy != None:
+            count += pokemon_candy
     return count
 
 
